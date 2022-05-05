@@ -1,6 +1,7 @@
 let order = [];
 let clickedOrder = [];
 let score = 0;
+var ponto = document.getElementById('ponto');
 
 //0 - verde
 //1 - vermelho
@@ -33,7 +34,7 @@ let lightColor = (element, number) => {
 
     setTimeout(() => {
         element.classList.remove('selected');
-    },number);
+    }, number);
 }
 
 //checa se os botoes clicados são os mesmos da ordem gerada no jogo
@@ -45,8 +46,9 @@ let checkOrder = () => {
         }
     }
     if (clickedOrder.length == order.length) {
-        alert(`Pontuação: ${score}\nVocê acertou! Iniciando próximo nível!`);
-        nextLevel();
+        setTimeout(() => {
+            nextLevel();
+        }, 500);
     }
 }
 
@@ -76,6 +78,7 @@ let createColorElement = (color) => {
 
 //funcao para proximo nivel do jogo
 let nextLevel = () => {
+    ponto.innerHTML = "Pontuação: " + score;
     score++;
     shuffleOrder();
 }
@@ -85,16 +88,6 @@ let gameOver = () => {
     alert(`Pontuação: ${score}!\nVocê perdeu o jogo!\nClique em OK para iniciar um novo jogo`);
     order = [];
     clickedOrder = [];
-
-    playGame();
-}
-
-//funcao de inicio do jogo
-let playGame = () => {
-    alert('Bem vindo ao Gênesis! Iniciando novo jogo!');
-    score = 0;
-
-    nextLevel();
 }
 
 //eventos de clique para as cores
@@ -104,5 +97,12 @@ yellow.onclick = () => click(2);
 blue.onclick = () => click(3);
 
 
-//inicio do jogo
-playGame();
+
+function start() {
+    order = [];
+    clickedOrder = [];
+    score = 0;
+    setTimeout(() => {
+        nextLevel();
+    }, 500);
+} 
